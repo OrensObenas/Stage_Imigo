@@ -1,0 +1,40 @@
+<h2>Mes documents déposés</h2>
+
+<table border="1">
+  <tr>
+    <th>Nom</th>
+    <th>Fichier</th>
+    <th>Date</th>
+    <th>Validé ?</th>
+    <th>Action</th>
+  </tr>
+  {% for doc in documents %}
+  <tr>
+    <td>{{ doc.nom }}</td>
+    <td><a href="{{ doc.fichier.url }}" target="_blank">Voir</a></td>
+    <td>{{ doc.date_depot }}</td>
+    <td>{{ doc.valide|yesno:"Oui,Non" }}</td>
+    <td>
+      <form method="POST" action="{% url 'supprimer_document' doc.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" onclick="return confirm('Confirmer la suppression ?');">Supprimer</button>
+      </form>
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="5">Aucun document pour le moment.</td></tr>
+  {% endfor %}
+</table>
+
+
+<hr>
+
+<h3>Déposer un nouveau document</h3>
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Déposer</button>
+</form>
+
+<br>
+<a href="{% url 'dashboard' %}">← Retour au tableau de bord</a>
