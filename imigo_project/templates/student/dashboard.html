@@ -1,0 +1,8 @@
+<h2>Bienvenue, {{ etudiant.nom }} {{ etudiant.prenoms }}</h2>
+
+<p>Email : {{ etudiant.email }}</p>
+<p>Téléphone : {{ etudiant.telephone }}</p>
+
+<a href="{% url 'infos_personnelles' %}">Modifier mes informations</a><br>
+<a href="{% url 'documents' %}">Gérer mes documents</a><br>
+<a href="{% url 'deconnexion' %}">Se déconnecter</a>
